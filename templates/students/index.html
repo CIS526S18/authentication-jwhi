@@ -8,10 +8,8 @@
        Student Roster
     </h1>
     <ul>
-      <%= students.map(function(s) {
-        return render('students/_student.html', {student: s})
-      }).join('') %>
+      <%= students.map(function(s) { return render('students\\_student.html', {student: s})}).join('') %>
     </ul>
-    <%= render('students/_form.html') %>
+    <%= render('students\\_form.html') %>
   </body>
 </html>

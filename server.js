@@ -4,7 +4,7 @@ const qs = require('querystring');
 const view = require('./view/view');
 const Router = require('./helpers/router');
 const studentController = require('./controller/students');
-const PORT = 3000;
+const PORT = 4320;
 
 // create the template cache
 view.cacheTemplates();
@@ -14,6 +14,13 @@ var router = new Router();
 router.addRoute('GET', '/', studentController.list);
 router.addRoute('GET', '/students', studentController.list);
 router.addRoute('POST', '/students', studentController.create);
+
+// More was in class as an example, but won't ruin any functionality with the missing cookie information
+// Not an example from in class, but on his website
+// https://github.com/zombiepaladin/cookie-example
+router.addRoute('GET', '/cookie', function(req, res) {
+  res.setHeader('SetCookie', 'quote=cookies%20are%20for%20me');
+});
 
 /** @function handleRequest
   * Handles requests to the webserver by rendering a page listing

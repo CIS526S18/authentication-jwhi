@@ -23,7 +23,7 @@ function list(req, res) {
       return;
     }
     res.setHeader('Content-Type', 'text/html');
-    res.end(view.render('students/index.html', {students: students}));
+    res.end(view.render('students\\index.html', {students: students}));
   });
 }
 
