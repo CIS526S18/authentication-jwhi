@@ -1,5 +1,8 @@
 const url = require('url');
 
+/** @class Router
+  * Provides routing functionality to a web app
+  */
 function Router() {
   this.routemap = {
     'GET': [],
@@ -7,9 +10,10 @@ function Router() {
   }
 }
 
-// Routes the request to the appropriate function
+/** @method route
+  * Routes incoming request to the appropriate function
+  */
 Router.prototype.route = function(req, res) {
- console.log('this.routemap', this.routemap)
   // Extract resource (path)
   var resource = url.parse(req.url).pathname;
 
@@ -25,7 +29,7 @@ Router.prototype.route = function(req, res) {
       }
       // store parameters in the request
       req.params = params;
-      return this.routemap[verb][i].callback(req, res);
+      return this.routemap[verb][i].handler(req, res);
     }
   }
 
@@ -33,8 +37,13 @@ Router.prototype.route = function(req, res) {
   res.end("Not found");
 }
 
-// add new routes to the route table
-Router.prototype.addRoute = function(httpVerb, route, callback) {
+/** @method addRoute
+  * Adds new routes the routing table
+  * @param {string} httpVerb - the request type (POST or GET)
+  * @param {string} route - the route to serve (i.e. /users/:id)
+  * @param {function} hander - the request handler to trigger
+  */
+Router.prototype.addRoute = function(httpVerb, route, handler) {
   var tokens = route.split('/');
   var exp = [];
   var keys = [];
@@ -59,10 +68,8 @@ Router.prototype.addRoute = function(httpVerb, route, callback) {
   this.routemap[httpVerb].push({
     regexp: regexp,
     keys: keys,
-    callback: callback
+    handler: handler
   });
-
-  console.log(this.routemap)
 }
 
 

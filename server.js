@@ -4,7 +4,6 @@ const qs = require('querystring');
 const view = require('./view/view');
 const Router = require('./helpers/router');
 const studentController = require('./controller/students');
-console.log('Router', Router);
 const PORT = 3000;
 
 // create the template cache
@@ -12,7 +11,6 @@ view.cacheTemplates();
 
 // create our router
 var router = new Router();
-console.log('router', router)
 router.addRoute('GET', '/', studentController.list);
 router.addRoute('GET', '/students', studentController.list);
 router.addRoute('POST', '/students', studentController.create);
